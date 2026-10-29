@@ -12,9 +12,10 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 env:
-  IMAGE: docker.io/rpsa/caddy-cloudflare
+  IMAGE: ghcr.io/raulredes/caddy-cloudflare
 
 jobs:
   build:
@@ -33,8 +34,9 @@ jobs:
 
       - uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ¿Ya está construida?
         id: check
